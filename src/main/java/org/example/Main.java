@@ -70,10 +70,10 @@ class Book {
         this.checkedOutTo = checkedOutTo;
     }
 
-    public String toString() {
+    public String toString(){
         return String.format(
-                "Book ID: %d, ISBN: %s, Title: %s",
-                this.id, this.isbn, this.title
+                "ID: %d | ISBN: %s | Title: %s | Checked Out To: %s",
+                this.id, this.isbn, this.title, this.checkedOutTo
         );
     }
 }
@@ -85,36 +85,36 @@ public class Main {
         //Array of books
         Book[] books = {
                 new Book(1, "ISBN978-0-01", "Love in Paris", true, "Gigi"),
-                new Book(2, "ISBN978-0-02", "Hope Rising", false, "Alex"),
+                new Book(2, "ISBN978-0-02", "Hope Rising", false, ""),
                 new Book(3, "ISBN978-0-03", "The Last Star", true, "Jamie"),
                 new Book(4, "ISBN978-0-04", "Moonlight Tales", true, "Zara"),
-                new Book(5, "ISBN978-0-05", "Legends of Fire", false, "Leo"),
+                new Book(5, "ISBN978-0-05", "Legends of Fire", false, ""),
                 new Book(6, "ISBN978-0-06", "Whispers of Time", true, "Nina"),
                 new Book(7, "ISBN978-0-07", "Shadow City", true, "Chris"),
-                new Book(8, "ISBN978-0-08", "Echoes Within", false, "Sam"),
+                new Book(8, "ISBN978-0-08", "Echoes Within", false, ""),
                 new Book(9, "ISBN978-0-09", "Dreambound", true, "Maya"),
                 new Book(10, "ISBN978-0-10", "Fragments", true, "Ian"),
-                new Book(11, "ISBN978-0-11", "Beneath the Stars", false, "Elle"),
+                new Book(11, "ISBN978-0-11", "Beneath the Stars", false, ""),
                 new Book(12, "ISBN978-0-12", "Fading Lights", true, "Ava"),
                 new Book(13, "ISBN978-0-13", "The Forgotten Path", true, "Owen"),
-                new Book(14, "ISBN978-0-14", "Golden Ashes", false, "Liam"),
+                new Book(14, "ISBN978-0-14", "Golden Ashes", false, ""),
                 new Book(15, "ISBN978-0-15", "Veiled Truth", true, "Noah"),
                 new Book(16, "ISBN978-0-16", "The Hollow Road", true, "Emma"),
-                new Book(17, "ISBN978-0-17", "Rise of Dawn", false, "Eli"),
+                new Book(17, "ISBN978-0-17", "Rise of Dawn", false, ""),
                 new Book(18, "ISBN978-0-18", "Windswept", true, "Isla"),
                 new Book(19, "ISBN978-0-19", "Chasing Horizons", true, "Aiden"),
-                new Book(20, "ISBN978-0-20", "Breaking Silence", false, "Sophie")
+                new Book(20, "ISBN978-0-20", "Breaking Silence", false, "")
         };
 
 
         //Ask the use want they want to do//
-        System.out.println("Please enter a number you want: \n1. Show Available Books\n2. Show Checked Out Books\n3. Exit");
+        System.out.println("Please enter a number you want: \n1. Show Available Books\n2. Show Checked Out Books\n3. Check In a book\n4. Exit");
 
         //Take the user input and store it in numberInserted
         int numberInserted = scanner.nextInt();
 
         //Based on the user input  create a while loop, that will iterate until numberInserted by user is 3
-        while (numberInserted != 3) {
+        while (numberInserted != 4) {
             //Based on the users input, create a switch statement or if statement and display the needed
             ///If inserted by user is 1 (show available books)///
             if (numberInserted == 1) {
@@ -123,7 +123,10 @@ public class Main {
                 for (int i = 0; i < books.length; i++) {
                     //Inorder to display only the Available books(meaning isCheckOut() == false)  we should use if statement to differentiate with the checkout book//
                     if (books[i].isCheckOut() == false) {
-                        System.out.println(books[i]);
+                        System.out.println("ID: " + books[i].getId()
+                                + " | ISBN: " + books[i].getIsbn()
+                                + " | Title: " + books[i].getTitle());
+
                     }
                 }
                 //After display the available books, we ask user what they want to do after//
@@ -147,6 +150,9 @@ public class Main {
                               books[i].setCheckedOutTo(enteredName);
                               System.out.println("Thank you! You have checked out the book with ID: " + books[i].getId() +" Isbn: " + books[i].getIsbn()+ " titled: " + books[i].getTitle());
                           }
+//                          else{
+//                              System.out.println("Please only enter a valid available book number");
+//                          }
 
                       }
 
@@ -154,66 +160,22 @@ public class Main {
 
               }
 
-
-
                 ///if inserted number is 2(show checked out books)///
             } else if (numberInserted == 2) {
                 System.out.println("Checked out Books:");
+                for (int i = 0; i < books.length; i++) {
+                    //Inorder to display only the Available books(meaning isCheckOut() == false)  we should use if statement to differentiate with the checkout book//
+                    if (books[i].isCheckOut() == true) {
+                        System.out.println(books[i]);
+//
+                    }
+                }
 
                 ///if the number inserted is not 1,2 or 3 it will print this/
-            }else System.out.println("NO SUCH COMMAND AS: " + numberInserted);
-//            switch (numberInserted) {
-//                case 1:
-//                    System.out.println("Available Books...");
-//                    for (int i = 0; i < books.length; i++) {
-//                        if (books[i].isCheckOut() == false) {
-//                            System.out.println(books[i]);
-//                        }
-//                    }
-//
-//                    //Second choice
-//
-//                    int proceedChoice = 0;
-//                    String nameprovided = "";
-//
-//                    while (proceedChoice != 2) {
-//                        proceedChoice = scanner.nextInt();
-//
-//                        switch (proceedChoice) {
-//                            case 1:
-//                                System.out.println("To checkout a book, please enter your name:");
-////                                nameprovided = scanner.nextLine();
-////                                System.out.println("Name entered: " + nameprovided);
-//                                break;
-//                            case 2:
-//                                System.out.println("Returning to home screen...");
-//                                break;
-//                            case 3:
-//                                System.out.println("Thank you! Have a great day!");
-//                                System.exit(0);
-//                                break;
-//                            default:
-//                                System.out.println("Invalid input, please try again.");
-//                        }
-//
-//
-//                    }
-//
-//                    break;
-//                case 2:
-//                    System.out.println("Checked Out Books...");
-//                    for (int i = 0; i < books.length; i++) {
-//                        if (books[i].isCheckOut() == false) {
-//                            System.out.println(books[i]);
-//                        }
-//                    }
-//                    break;
-//                default:
-//                    System.out.println("NO SUCH COMMAND AS: " + numberInserted);
-//                    break;
-//            }
+            } else System.out.println("NO SUCH COMMAND AS: " + numberInserted);
 
-            System.out.println("Please enter a number you want: \n1. Show Available Books\n2. Show Checked Out Books\n3. Exit");
+
+            System.out.println("Please enter a number you want: \n1. Show Available Books\n2. Show Checked Out Books\n3. Check In a book\n4. Exit");
             numberInserted = scanner.nextInt(); // Update the user's choice
         }
         //If user input is 3, it will print this
