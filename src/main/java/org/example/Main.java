@@ -70,7 +70,7 @@ class Book {
         this.checkedOutTo = checkedOutTo;
     }
 
-    public String toString(){
+    public String toString() {
         return String.format(
                 "ID: %d | ISBN: %s | Title: %s | Checked Out To: %s",
                 this.id, this.isbn, this.title, this.checkedOutTo
@@ -108,13 +108,13 @@ public class Main {
 
 
         //Ask the use want they want to do//
-        System.out.println("Please enter a number you want: \n1. Show Available Books\n2. Show Checked Out Books\n3. Check In a book\n4. Exit");
+        System.out.println("Please enter a number you want: \n1. Show Available Books\n2. Show Checked Out Books\n3. Exit");
 
         //Take the user input and store it in numberInserted
         int numberInserted = scanner.nextInt();
 
         //Based on the user input  create a while loop, that will iterate until numberInserted by user is 3
-        while (numberInserted != 4) {
+        while (numberInserted != 3) {
             //Based on the users input, create a switch statement or if statement and display the needed
             ///If inserted by user is 1 (show available books)///
             if (numberInserted == 1) {
@@ -130,35 +130,35 @@ public class Main {
                     }
                 }
                 //After display the available books, we ask user what they want to do after//
-                System.out.println("Please enter a number you want to proceed with : \n1. Check out a book\n2. Go back to the home screen\n3. exit");
+                System.out.println("Please enter a number you want to proceed with : \n1. Check out a book\n2. Go back to the home screen\n");
                 int userSecondchoice = scanner.nextInt();
 
-              if(userSecondchoice ==1 ){
-                  System.out.println("To checkout a book, please enter your name:");
-                  scanner.nextLine();
-                  String enteredName=scanner.nextLine();
-                  System.out.println(enteredName);
+                if (userSecondchoice == 1) {
+                    System.out.println("To checkout a book, please enter your name:");
+                    scanner.nextLine();
+                    String enteredName = scanner.nextLine();
+                    System.out.println(enteredName);
 
-                  System.out.println("To checkout a book, please enter your Book ID:");
-                  int bookIdInsertedByUser = scanner.nextInt();
-                  System.out.println(bookIdInsertedByUser);
+                    System.out.println("To checkout a book, please enter your Book ID:");
+                    int bookIdInsertedByUser = scanner.nextInt();
+                    System.out.println(bookIdInsertedByUser);
 
-                  if(!enteredName.isEmpty() && bookIdInsertedByUser != 0){
-                      for (int i = 0; i < books.length; i++) {
-                          if(bookIdInsertedByUser == books[i].getId()){
-                              books[i].setIsCheckOut(true);
-                              books[i].setCheckedOutTo(enteredName);
-                              System.out.println("Thank you! You have checked out the book with ID: " + books[i].getId() +" Isbn: " + books[i].getIsbn()+ " titled: " + books[i].getTitle());
-                          }
+                    if (!enteredName.isEmpty() && bookIdInsertedByUser != 0) {
+                        for (int i = 0; i < books.length; i++) {
+                            if (bookIdInsertedByUser == books[i].getId()) {
+                                books[i].setIsCheckOut(true);
+                                books[i].setCheckedOutTo(enteredName);
+                                System.out.println("Thank you! You have checked out the book with ID: " + books[i].getId() + " Isbn: " + books[i].getIsbn() + " titled: " + books[i].getTitle());
+                            }
 //                          else{
 //                              System.out.println("Please only enter a valid available book number");
 //                          }
 
-                      }
+                        }
 
-                  }
+                    }
 
-              }
+                }
 
                 ///if inserted number is 2(show checked out books)///
             } else if (numberInserted == 2) {
@@ -167,7 +167,25 @@ public class Main {
                     //Inorder to display only the Available books(meaning isCheckOut() == false)  we should use if statement to differentiate with the checkout book//
                     if (books[i].isCheckOut() == true) {
                         System.out.println(books[i]);
-//
+                    }
+
+                }
+                //After display the checkedout books, we ask user what they want to do after//
+                System.out.println("Please enter a a letter you want to proceed with : \nC. Check In a book\nX. Go back to the home screen");
+                scanner.nextLine();
+                String userSecondchoiceCheckedOut = scanner.nextLine();
+
+                if (userSecondchoiceCheckedOut.equalsIgnoreCase("C")) {
+                    System.out.println("Please enter the ID of the book");
+                    int idInsertedByUser= scanner.nextInt();
+                    scanner.nextLine();
+
+                    for (int i = 0; i < books.length; i++) {
+                        if (idInsertedByUser == books[i].getId()) {
+                            books[i].setIsCheckOut(false);
+                            books[i].setCheckedOutTo("");
+                            System.out.println("Thank you! You have checked in the book with ID: " + books[i].getId() + " Isbn: " + books[i].getIsbn() + " titled: " + books[i].getTitle());
+                        }
                     }
                 }
 
@@ -181,10 +199,5 @@ public class Main {
         //If user input is 3, it will print this
         System.out.println("Thank you have a great day!");
 
-
-//        System.out.println(books[0]);
-//        for (int i = 0; i < books.length; i++) {
-//            System.out.println(books[i]);
-//        }
     }
 }
