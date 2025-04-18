@@ -6,7 +6,7 @@ class Book {
     int id;
     String isbn;
     String title;
-    boolean isCheckOut;
+    Boolean isCheckOut;
     String checkedOutTo;
 
     Book(int id, String isbn, String title, boolean isCheckOut, String checkedOutTo) {
@@ -18,8 +18,15 @@ class Book {
 
     }
 
-    public void chekout() {}
-    public void  chekIn() {}
+    public void chekout(String name, boolean isCheckedOut) {
+        this.checkedOutTo = name;
+        this.isCheckOut = isCheckedOut;
+    }
+
+    public void chekIn() {
+        this.checkedOutTo = "";
+        this.isCheckOut = false;
+    }
 
     //GETTERS
     public int getId() {return this.id;}
@@ -29,17 +36,49 @@ class Book {
     public String checkedOutTo() {return this.checkedOutTo;}
 
     //SETTERS
-    public void setId(int id) { this.id= id;}
-    public void setIsbn( String isbn) { this.isbn= isbn;}
-    public void setTitle( String title) { this.title= title;}
-    public void setIsCheckOut( boolean isCheckOut) { this.isCheckOut= isCheckOut;}
-    public void setCheckedOutTo( String checkedOutTo) { this.checkedOutTo= checkedOutTo;}
+    public void setId(int id) {this.id = id;}
+    public void setIsbn(String isbn) {this.isbn = isbn;}
+    public void setTitle(String title) {this.title = title;}
+    public void setIsCheckOut(boolean isCheckOut) {this.isCheckOut = isCheckOut;}
+    public void setCheckedOutTo(String checkedOutTo) {this.checkedOutTo = checkedOutTo;}
+
+    public String toString() {
+        return String.format(
+                "Book ID: %d, ISBN: %s, Title: %s",
+                this.id, this.isbn, this.title
+        );
+    }
 }
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println();
-        Scanner myScanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Please enter a number you want: \n1. Show Available Books\n2. Show Checked Out Books\n3. Exit");
+        int numberInserted = scanner.nextInt();
+
+        while (numberInserted != 3) {
+            // Switch case for different options
+            switch (numberInserted) {
+                case 1:
+                    System.out.println("Available Books...");
+                    // You can replace this with a call to a method to list books
+                    break;
+                case 2:
+                    System.out.println("Show Checked Out Books...");
+                    // Replace with logic to show checked-out books
+                    break;
+                default:
+                    System.out.println("NO SUCH COMMAND AS: " + numberInserted);
+                    break;
+            }
+
+            // Ask for user input again inside the loop
+            System.out.println("Please enter a number you want: \n1. Show Available Books\n2. Show Checked Out Books\n3. Exit");
+            numberInserted = scanner.nextInt(); // Update the user's choice
+        }
+
+
         Book[] books = {
                 new Book(1, "ISBN978-0-01", "Love in Paris", true, "Gigi"),
                 new Book(2, "ISBN978-0-02", "Hope Rising", false, "Alex"),
@@ -62,5 +101,9 @@ public class Main {
                 new Book(19, "ISBN978-0-19", "Chasing Horizons", true, "Aiden"),
                 new Book(20, "ISBN978-0-20", "Breaking Silence", false, "Sophie")
         };
+//        System.out.println(books[0]);
+//        for (int i = 0; i < books.length; i++) {
+//            System.out.println(books[i]);
+//        }
     }
 }
